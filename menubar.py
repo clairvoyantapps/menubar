@@ -37,7 +37,7 @@ class Timer(NSObject):
     # Let it highlight upon clicking
     self.statusitem.setHighlightMode_(1)
     # Set a tooltip
-    self.statusitem.setToolTip_('Latest Coinbase Price!')
+    # self.statusitem.setToolTip_('Latest Coinbase Price!')
 
     # Build a very simple menu
     self.menu = NSMenu.alloc().init()
@@ -70,7 +70,7 @@ class Timer(NSObject):
     # Get the timer going
     self.timer = NSTimer.alloc().initWithFireDate_interval_target_selector_userInfo_repeats_(start_time, 60.0, self, 'tick:', None, True)
     NSRunLoop.currentRunLoop().addTimer_forMode_(self.timer, NSDefaultRunLoopMode)
-    self.timer.fire()
+    # self.timer.fire()
 
   def sync_(self, notification):
     print notification
