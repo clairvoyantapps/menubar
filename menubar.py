@@ -124,12 +124,12 @@ class Timer(NSObject):
 
   def buycoinbase_(self, notification):
     self.tick_(None)
-    url = u"http://www.coinbase.com/buys?from=socialsoft_ticker"
+    url = u"http://www.coinbase.com/buys?from=hoot_ticker"
     webbrowser.open(url)
 
   def sellcoinbase_(self, notification):
     self.tick_(None)
-    url = u"http://www.coinbase.com/sells?from=socialsoft_ticker"
+    url = u"http://www.coinbase.com/sells?from=hoot_ticker"
     webbrowser.open(url)
 
   def tick_(self, notification):
