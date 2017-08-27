@@ -31,7 +31,7 @@ class Timer(NSObject):
     # Set initial image
     self.statusitem.setTitle_('$' + self.coinbase_last)
     self.statusitem.setImage_(self.images['idle'])
-    tool_tip = 'Coinbase Price $' + self.coinbase_last + '. Last updated: ' + str(datetime.datetime.now().strftime('%I:%M:%S %p')) + '. Updating every ' + self.update_every + '.'
+    tool_tip = 'Latest Bitcoin Price $' + self.coinbase_last + '. Last updated: ' + str(datetime.datetime.now().strftime('%I:%M:%S %p')) + '. Updating every ' + self.update_every + '.'
     self.statusitem.setToolTip_(tool_tip)
 
     # Let it highlight upon clicking
@@ -53,6 +53,12 @@ class Timer(NSObject):
 
     menuitem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Update Now', 'updatenow:', '0')
     self.menu.addItem_(menuitem)
+
+    menuitem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Visit Socialsoft', 'visitsocialsoft:', 'v')
+    self.menu.addItem_(menuitem)
+
+    menuitem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Visit Instadate', 'visitinstadate:', 'i')
+    # self.menu.addItem_(menuitem)
 
     menuitem = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_('Buy At Coinbase', 'buycoinbase:', 'b')
     self.menu.addItem_(menuitem)
@@ -106,20 +112,30 @@ class Timer(NSObject):
   def updatenow_(self, notification):
     self.tick_(None)
 
+  def visitsocialsoft_(self, notification):
+    self.tick_(None)
+    url = u"http://bit.ly/social-soft"
+    webbrowser.open(url)
+
+  def visitinstadate_(self, notification):
+    self.tick_(None)
+    url = u"http://bit.ly/instamac"
+    webbrowser.open(url)
+
   def buycoinbase_(self, notification):
     self.tick_(None)
-    url = u"http://www.coinbase.com/buys"
+    url = u"http://www.coinbase.com/buys?from=socialsoft_ticker"
     webbrowser.open(url)
 
   def sellcoinbase_(self, notification):
     self.tick_(None)
-    url = u"http://www.coinbase.com/sells"
+    url = u"http://www.coinbase.com/sells?from=socialsoft_ticker"
     webbrowser.open(url)
 
   def tick_(self, notification):
     self.coinbase_last = json.loads(urllib.urlopen(COINBASE_API_URL).read())['amount']
     self.statusitem.setTitle_('$' + self.coinbase_last)
-    tool_tip = 'Coinbase Price $' + self.coinbase_last + '. Last updated: ' + str(datetime.datetime.now().strftime('%I:%M:%S %p')) + '. Updating every ' + self.update_every + '.'
+    tool_tip = 'Latest Bitcoin Price $' + self.coinbase_last + '. Last updated: ' + str(datetime.datetime.now().strftime('%I:%M:%S %p')) + '. Updating every ' + self.update_every + '.'
     self.statusitem.setToolTip_(tool_tip)
     print tool_tip
 
